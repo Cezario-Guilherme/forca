@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Forca</title>
+	<script src="jquery-2.2.1.js"></script>
+	<script src="forca.js"></script>
+	<link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>	
+		<div id="boneco">
+			
+		</div>
+		<div id="palavra">
+		
+		</div>
+
+		<section id="tchutes">
+			<div>
+				Seus chutes:
+			</div>
+		<div id="chutes">
+
+		</div>
+		</section>
+
+		<section id="tchances">
+			<div>
+				Suas chances:
+			</div>
+		<div id="chances">
+			
+		</div>
+		</section>
+		
+		<ul>
+			<li>
+				<button name="q" onclick="clique(this)" class="botoes" onclick="disabled">Q</button>
+			</li>
+			<li>
+				<button name="w" onclick="clique(this)" class="botoes">W</button>
+			</li>
+			<li>
+				<button name="e" onclick="clique(this)" class="botoes">E</button>
+			</li>
+			<li>
+				<button name="r" onclick="clique(this)" class="botoes">R</button>
+			</li>
+			<li>
+				<button name="t" onclick="clique(this)" class="botoes">T</button>
+			</li>
+			<li>
+				<button name="y" onclick="clique(this)" class="botoes">Y</button>
+			</li>
+			<li>
+				<button name="u" onclick="clique(this)" class="botoes">U</button>
+			</li>
+			<li>
+				<button name="i" onclick="clique(this)" class="botoes">I</button>
+			</li>
+			<li>
+				<button name="o" onclick="clique(this)" class="botoes">O</button>
+			</li>
+			<li>
+				<button name="p" onclick="clique(this)" class="botoes">P</button>
+			</li>
+		</ul>
+		<ul>
+			<li>
+				<button name="a" onclick="clique(this)" class="botoes">A</button>
+			</li>
+			<li>
+				<button name="s" onclick="clique(this)" class="botoes">S</button>
+			</li>
+			<li>
+				<button name="d" onclick="clique(this)" class="botoes">D</button>
+			</li>
+			<li>
+				<button name="f" onclick="clique(this)" class="botoes">F</button>
+			</li>
+			<li>
+				<button name="g" onclick="clique(this)" class="botoes">G</button>
+			</li>
+			<li>
+				<button name="h" onclick="clique(this)" class="botoes">H</button>
+			</li>
+			<li>
+				<button name="j" onclick="clique(this)" class="botoes">J</button>
+			</li>
+			<li>
+				<button name="k" onclick="clique(this)" class="botoes">K</button>
+			</li>
+			<li>
+				<button name="l" onclick="clique(this)" class="botoes">L</button>
+			</li>
+			<li>
+				<button name="ç" onclick="clique(this)" class="botoes">Ç</button>
+			</li>
+		</ul>
+		<ul>
+			<li>
+				<button name="z" onclick="clique(this)" class="botoes">Z</button>
+			</li>
+			<li>
+				<button name="x" onclick="clique(this)" class="botoes">X</button>
+			</li>
+			<li>
+				<button name="c" onclick="clique(this)" class="botoes">C</button>
+			</li>
+			<li>
+				<button name="v" onclick="clique(this)" class="botoes">V</button>
+			</li>
+			<li>
+				<button name="b" onclick="clique(this)" class="botoes">B</button>
+			</li>
+			<li>
+				<button name="n" onclick="clique(this)" class="botoes">N</button>
+			</li>
+			<li>
+				<button name="m" onclick="clique(this)" class="botoes">M</button>
+			</li>
+		</ul>
+		<div id="dica">
+			<button name="dica" onclick="exibirDica()" id="btndica">Dica</button>
+		</div>
+
+		<div id="voltar">
+			<button id="recarregar">Reiniciar</button>
+		</div>
+<script>
+			var biblioteca = [
+			"primeira",
+			"segunda",
+			"terceira",
+			"quarta",
+			"quinta",
+			"sexta",
+			"setima",
+			"oitava",
+			"nona",
+			"decima"];
+
+			 var bibliotecaDica = [
+			"primeira",
+			"segunda",
+			"terceira",
+			"quarta",
+			"quinta",
+			"sexta",
+			"setima",
+			"oitava",
+			"nona",
+			"decima"];
+
+			 var sorteio = Math.floor(Math.random() * 10)
+			 var resposta = biblioteca[sorteio];
+			 var dica = bibliotecaDica[sorteio];
+			 var chances = 7;
+			 var chutes = "";
+			 var img = document.createElement("IMG");
+			 img.src = "img/primeira.png";
+			 document.getElementById('boneco').appendChild(img);
+
+			 function atualizarPalavra(letra) {
+
+				var palavraMontada = "";
+				//confere se a letra tem na palavra chave
+				for(var i = 0; i < resposta.length; ++i) { /* Percorrendo a resposta*/
+					var acerto = false;
+					for(var j = 0; j < chutes.length; ++j) { /* Percorrendo o chute */
+						if(chutes[j] == resposta[i]) {
+							palavraMontada += chutes[j]+" ";
+							acerto = true;
+							break;
+						}
+
+					}
+					if(acerto == false) {
+						palavraMontada += "_ ";
+					}
+
+				}
+				//mostra a palavra
+				var divPalavra = document.getElementById("palavra");
+				divPalavra.innerText = palavraMontada;
+
+				//mostra os chutes
+				var divChutes = document.getElementById("chutes");
+				divChutes.innerText = chutes;
+			} 
+			atualizarPalavra();
+
+			function verificarErro(letra){
+				var tamanho = 0;
+				for (var i = 0; i < resposta.length; i++) {
+					if (letra == resposta[i]) {
+						tamanho++;
+					}
+				}
+
+				if (tamanho === 0) {
+					tamanho = 0;
+					chances--;
+				}
+				var divChances = document.getElementById("chances");
+				divChances.innerText = (chances);
+				if (chances == 6) {
+					img.src = "img/segunda.jpeg";
+				}
+				if (chances == 5) {
+					img.src = "img/terceira.jpeg";
+				}
+				if (chances == 4) {
+					img.src = "img/quarta.jpeg";
+				}
+				if (chances == 3) {
+					img.src = "img/quinta.jpeg";
+				}
+				if (chances == 2) {
+					img.src = "img/sexta.jpeg";
+				}
+				if (chances == 1) {
+					img.src = "img/setima.jpeg";
+				}
+				if (chances == 0) {
+					img.src = "img/oitava.jpeg";
+				}
+				
+				document.getElementById('boneco').appendChild(img);
+			}
+								
+			//função que é responsavel por exibir a dica
+			function exibirDica(){
+				alert("A dica é: "+dica);
+			}
+			$('#recarregar').click(function(){
+				location.reload(true);
+			})
+
+    function clique(botao)
+    {		
+    		// Checar se a palavra possui essa letra
+    		// Senão possuir, diminuir chances
+    		if (chances === 0 ) {
+    			alert ("suas chances acabaram");
+    		}
+    		else{
+    		chutes+= botao.name;
+    		atualizarPalavra ();
+    		}
+    		verificarErro(botao.name);
+
+
+
+    }
+    </script>
+
+</body>
+</html>
